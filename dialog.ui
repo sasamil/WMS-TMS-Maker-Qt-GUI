@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>694</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WMS Tilemaker</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="tmresources.qrc">
+    <normaloff>:/icons/fatcow_sm_layers.png</normaloff>:/icons/fatcow_sm_layers.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QGroupBox {
+    /*background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #E0E0E0, stop: 1 #FFFFFF);*/
+    border: 1px solid lightgray;
+    border-radius: 1px;
+    margin-top: 2ex; /* leave space at the top for the title */
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center; /* position at the top center */
+    /*padding: 0 3px;*/
+    /*background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #FFOECE, stop: 1 #FFFFFF);*/
+}
+
+QFrame {
+    border: 1px solid lightgray;
+}
+
+QLabel {
+    border:0;
+}
+</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_9">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="QPushButton" name="pushOpen">
+       <property name="toolTip">
+        <string>Open file with input parameters</string>
+       </property>
+       <property name="text">
+        <string>  &amp;Open</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/icons/open.png</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+O</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushSave">
+       <property name="toolTip">
+        <string>Save input parameters to file</string>
+       </property>
+       <property name="text">
+        <string>  &amp;Save</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/icons/save.png</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+S</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushDefault">
+       <property name="toolTip">
+        <string>Clear the dialog and set the default parameters</string>
+       </property>
+       <property name="text">
+        <string>  &amp;Default</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/icons/default.png</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+Del</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushQuit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Close the dialog and quit the application</string>
+       </property>
+       <property name="text">
+        <string>  &amp;Quit</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>:/icons/cancel.png</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+Q</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QFrame" name="frameBasic">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelUrl">
+              <property name="toolTip">
+               <string>The URL of WMS service</string>
+              </property>
+              <property name="whatsThis">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The URL of WMS service should be entered in the field below. Every regular WMS GetMap request must contain the &lt;span style=&quot; font-style:italic;&quot;&gt;URL&lt;/span&gt; part and consequently - &lt;span style=&quot; font-weight:600;&quot;&gt;this is a mandatory parameter&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>WMS Server URL:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="editUrl">
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The URL of WMS service should be entered in this field. Every regular WMS GetMap request must contain the &lt;span style=&quot; font-style:italic;&quot;&gt;URL&lt;/span&gt; part and consequently -&lt;span style=&quot; font-weight:600;&quot;&gt; this is a mandatory parameter&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QLabel" name="labelLayer">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The requested WMS layer&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usually, WMS services can serve many different layers. The layer of interest i.e. the layer that is to be cached should be entered in the next field. &lt;/p&gt;&lt;p&gt;Since OGC WMS specification allows more than one layer argument it is possible to request many layers here, but they have to be written as a comma separated string. However, multilayer requests are not usual and generally, they are not recommended.&lt;/p&gt;&lt;p&gt;Every regular WMS GetMap request must contain the &lt;span style=&quot; font-style:italic;&quot;&gt;layer&lt;/span&gt; part and consequently - &lt;span style=&quot; font-weight:600;&quot;&gt;this is a mandatory parameter&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>Layer:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="editLayer">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>275</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usually, WMS services can serve many different layers. The layer of interest i.e. the layer that is to be cached should be entered in this field. &lt;/p&gt;&lt;p&gt;Since OGC WMS specification allows more than one layer argument it is possible to request many layers here, but they have to be written as a comma separated string. However, multilayer requests are not usual and generally, they are not recommended.&lt;/p&gt;&lt;p&gt;Every regular WMS GetMap request must contain the &lt;span style=&quot; font-style:italic;&quot;&gt;layer&lt;/span&gt; part and consequently - &lt;span style=&quot; font-weight:600;&quot;&gt;this is a mandatory parameter&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QLabel" name="labelBBOX">
+                  <property name="toolTip">
+                   <string>Bounding Box of area</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The region of interest i.e. the&lt;span style=&quot; font-style:italic;&quot;&gt; bounding box&lt;/span&gt; of the region to be cached should be entered in the next field. The &lt;span style=&quot; font-style:italic;&quot;&gt;BBOX&lt;/span&gt; values should refer to the specified SRS and they should be written as a comma separated string i.e. in this form: &lt;span style=&quot; font-style:italic;&quot;&gt;minx, miny, maxx, maxy&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Every regular WMS GetMap request must contain the &lt;span style=&quot; font-style:italic;&quot;&gt;BBOX&lt;/span&gt; part and consequently - &lt;span style=&quot; font-weight:600;&quot;&gt;this is a mandatory parameter&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>BBOX:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="editBBOX">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>275</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The region of interest i.e. the&lt;span style=&quot; font-style:italic;&quot;&gt; bounding box&lt;/span&gt; of the region to be cached should be entered in this field. The &lt;span style=&quot; font-style:italic;&quot;&gt;BBOX&lt;/span&gt; values should refer to the specified SRS and they should be written as a comma separated string i.e. in this form: &lt;span style=&quot; font-style:italic;&quot;&gt;minx, miny, maxx, maxy&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Every regular WMS GetMap request must contain the &lt;span style=&quot; font-style:italic;&quot;&gt;BBOX&lt;/span&gt; part and consequently - &lt;span style=&quot; font-weight:600;&quot;&gt;this is a mandatory parameter&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="labelRes">
+                  <property name="toolTip">
+                   <string>The highest cache resolution</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The highest (i.e. the best) spatial resolution of TMS cache structure should be written in the next field. It denotes the dimension of one single pixel at the basic level of pyramidial TMS schema. In other words it is a length of a pixel in both &lt;span style=&quot; font-style:italic;&quot;&gt;x&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;y&lt;/span&gt; directions, in the unit which coresponds to the unit of the given &lt;span style=&quot; font-style:italic;&quot;&gt;SRS. (meter, degree of arc, etc.)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This is a mandatory parameter&lt;/span&gt;. It is inevitable information for all the calculations in regards to the tiling schema structuring. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>Resolution:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="editRes">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>275</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The highest (i.e. the best) spatial resolution of TMS cache structure should be written in this field. It denotes the dimension of one single pixel at the basic level of pyramidal TMS schema. In other words it is a length of a pixel in both &lt;span style=&quot; font-style:italic;&quot;&gt;x&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;y&lt;/span&gt; directions, in the unit which coresponds to the predefined unit of the given &lt;span style=&quot; font-style:italic;&quot;&gt;SRS. (meter, degree of arc, etc.)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This is a mandatory parameter&lt;/span&gt;. It is inevitable information for all the calculations in regards to the tiling schema structuring. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupUBox">
+         <property name="toolTip">
+          <string>Update regions definitions</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If not the entire BBOX area should be cached i.e if only some regions are to be updated - the needed data should be entered into this table. There can be up to 20 different update regions. For every update region, the first four fields (&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;left, bottom, right, top&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; i.e. minx, miny, maxx, maxy&lt;/span&gt;) are mandatory and they must contain some numeric value. The next three fields (&lt;span style=&quot; font-style:italic;&quot;&gt;high/low/fitting resolution&lt;/span&gt;) are optional and it is possible to specify:&lt;/p&gt;&lt;p&gt;a) only &lt;span style=&quot; font-style:italic;&quot;&gt;high resolution&lt;/span&gt; - the cache will be made for piramidal levels in range: high resolution - minimal posible resolution for the entire BBOX area.&lt;/p&gt;&lt;p&gt;b)&lt;span style=&quot; font-style:italic;&quot;&gt; high resolution&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;low resolution&lt;/span&gt; - the cache will be made for piramidal levels in range: high resolution - low resolution.&lt;/p&gt;&lt;p&gt;c) &lt;span style=&quot; font-style:italic;&quot;&gt;high resolution, low resolution, fitting resolution&lt;/span&gt; - the cache will be made for piramidal levels in range: high resolution - low resolution. However, the WMS swapping area will be a little bigger, so that the new cache tiles would optimally fit the already existing tiles at&lt;span style=&quot; font-style:italic;&quot;&gt; fitting resolution&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="title">
+          <string>Updates</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QTableWidget" name="tableUpdates">
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If not the entire BBOX area should be cached i.e if only some regions are to be updated - the needed data should be entered into this table. There can be up to 20 different update regions. For every update region, the first four fields (&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;left, bottom, right, top&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; i.e. minx, miny, maxx, maxy&lt;/span&gt;) are mandatory and they must contain some numeric value. The next three fields (&lt;span style=&quot; font-style:italic;&quot;&gt;high/low/fitting resolution&lt;/span&gt;) are optional and it is possible to specify:&lt;/p&gt;&lt;p&gt;a) only &lt;span style=&quot; font-style:italic;&quot;&gt;high resolution&lt;/span&gt; - the cache will be made for piramidal levels in range: high resolution - minimal posible resolution for the entire BBOX area.&lt;/p&gt;&lt;p&gt;b)&lt;span style=&quot; font-style:italic;&quot;&gt; high resolution&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;low resolution&lt;/span&gt; - the cache will be made for piramidal levels in range: high resolution - low resolution.&lt;/p&gt;&lt;p&gt;c) &lt;span style=&quot; font-style:italic;&quot;&gt;high resolution, low resolution, fitting resolution&lt;/span&gt; - the cache will be made for piramidal levels in range: high resolution - low resolution. However, the WMS swapping area will be a little bigger, so that the new cache tiles would optimally fit the already existing tiles at&lt;span style=&quot; font-style:italic;&quot;&gt; fitting resolution&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="tabKeyNavigation">
+             <bool>false</bool>
+            </property>
+            <property name="showGrid">
+             <bool>true</bool>
+            </property>
+            <property name="gridStyle">
+             <enum>Qt::SolidLine</enum>
+            </property>
+            <property name="rowCount">
+             <number>20</number>
+            </property>
+            <property name="columnCount">
+             <number>7</number>
+            </property>
+            <attribute name="verticalHeaderDefaultSectionSize">
+             <number>24</number>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>20</number>
+            </attribute>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <row/>
+            <column>
+             <property name="text">
+              <string>left</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>bottom</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>right</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>top</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>high res.</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>low res.</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>fitting res.</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QPushButton" name="pushLoadUpdates">
+              <property name="toolTip">
+               <string>Load update regions from file</string>
+              </property>
+              <property name="text">
+               <string>Load From File</string>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/icons/load.png</normalon>
+               </iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushClearUpdates">
+              <property name="toolTip">
+               <string>Clear the table with update regions</string>
+              </property>
+              <property name="text">
+               <string>Clear Updates</string>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/icons/eraser.png</normalon>
+               </iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_2">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QLabel" name="labelSRS">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The spatial reference system&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="whatsThis">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Spatial Reference System&lt;/span&gt; i.e. the code of horizontal coordinate reference system of both the source WMS service and the resulting TMS/WMS maps. Although OGC WMS specification allows several namespaces for the SRS (CRS, EPSG, AUTO2...) the general principle here is - everything is allowed if it is recognised by the refered WMS server.&lt;/p&gt;&lt;p&gt;This field can be made empty and the application will not complain about it. However, in this case, &lt;span style=&quot; color:#5555ff;&quot;&gt;EPSG:3857&lt;/span&gt; value (Google Spherical Mercator projection upon WGS84 longer axis) &lt;span style=&quot; color:#5555ff;&quot;&gt;will be used as default&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>SRS:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="editSRS">
+              <property name="whatsThis">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Spatial Reference System&lt;/span&gt; i.e. the code of horizontal coordinate reference system of both the source WMS service and the resulting TMS/WMS maps. Although OGC WMS specification allows several namespaces for the SRS (CRS, EPSG, AUTO2...) the general principle here is - everything is allowed if it is recognised by the refered WMS server.&lt;/p&gt;&lt;p&gt;This field can be made empty and the application will not complain about it. However, in this case, &lt;span style=&quot; color:#5555ff;&quot;&gt;EPSG:3857&lt;/span&gt; value (Google Spherical Mercator projection upon WGS84 longer axis) &lt;span style=&quot; color:#5555ff;&quot;&gt;will be used as default&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>EPSG:3857</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QLabel" name="labelThreads">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of parallel threads&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="whatsThis">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Number of independent threads&lt;/span&gt; for executing the HTTP WMS requesting and TMS caching. Depending on the number of procesor-cores on the client machine and especially on the performance of source WMS service - it gives sense to increase the number of independent threads. Thus, it is likely that the application will perform better.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Threads:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinThreads">
+              <property name="whatsThis">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Number of independent threads&lt;/span&gt; for executing the HTTP WMS requesting and TMS caching. Depending on the number of procesor-cores on the client machine and especially on the performance of source WMS service - it gives sense to increase the number of independent threads. Thus, it is likely that the application will perform better.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>20</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <item>
+             <widget class="QLabel" name="labelQuality">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The JPEG compression quality&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="whatsThis">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The JPEG compression quality. Choosing an optimal value basically means a balancing between image quality and memory consumption of the created cache. The default value is 90. If there is a memory issue, however, this parameter can be safely decreased. For satellite and orthophoto imagery the difference in image quality shouldn't be notable - on the other hand, the savings of memory could be significant.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Quality:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinQuality">
+              <property name="whatsThis">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The JPEG compression quality. Choosing an optimal value basically means a balancing between image quality and memory consumption of the created cache. The default value is 90. If there is a memory issue, however, it can be safely decreased. For satellite and orthophoto imagery the difference in image quality shouldn't be notable - on the other hand, the savings of memory could be significant.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="value">
+               <number>90</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_15">
+          <item>
+           <widget class="QCheckBox" name="checkNoOpt">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switch On/Off outflex optimization&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The outflex optimization provides better performance while creating the non-basic levels of pyramidal TMS schema. Furthermore, it cares about the image quality of created cache tiles. However, this kind of optimization is not suitable for the generated cartographic content (neither satellite nor orthophoto imagery) with generalized features. In this case, it is higly recommended to switch off the optimization.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>No Optimization</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkSkipdirs">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switch On/Off recreation of folders structure&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Depending on bounding box area and resolution, the TMS tiling scheme can be rather complex containing thousands of folders and millions of files. When only updating a part of it, the recreation of folder structure can be a bit time expensive, while being absolutely redundant! So, it is recommended to switch off the creation of directories (i.e. to check this option) when doing just updates.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Skip dirs recreation</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkVerbose">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switch On/Off following the progress of caching&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Checking this box means that the complete execution process will be viewed on the big text panel at the right side of this dialog. It is recommended to keep this option checked. The only benefit of switching it off is a bit better (maybe neglegible) performance improvment.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Verbose</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QGroupBox" name="groupBackground">
+           <property name="whatsThis">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The background color of the cache structure. It is unavoidable that TMS cache structure spatial covarage goes beyond the specified &lt;span style=&quot; font-style:italic;&quot;&gt;BBOX&lt;/span&gt;. The area which falls exactly outside the bounding box will be painted by this color or transparent.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="title">
+            <string>Background</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QRadioButton" name="radioWhite">
+              <property name="styleSheet">
+               <string notr="true">border: 0</string>
+              </property>
+              <property name="text">
+               <string>white</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioBlack">
+              <property name="styleSheet">
+               <string notr="true">border: 0</string>
+              </property>
+              <property name="text">
+               <string>black</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioTransparent">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>transparent</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupExceptions">
+           <property name="whatsThis">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These mutually exclusive options define the behavior of application in the case of HTTP exception/failure, during the execution.&lt;/p&gt;&lt;p&gt;a) &lt;span style=&quot; font-weight:600;&quot;&gt;tolerant&lt;/span&gt; - in the case of inappropriate HTTP response from a WMS server, repeat the same HTTP request two more times. After three consecutive failures, the execution goes on with the following requests for the remaining tiles. All the eventual incidents will be reported in the &lt;span style=&quot; font-style:italic;&quot;&gt;exceptions.log&lt;/span&gt; file.&lt;/p&gt;&lt;p&gt;b) &lt;span style=&quot; font-weight:600;&quot;&gt;moderate&lt;/span&gt; - in the case of inappropriate HTTP response from a WMS server, go on with sending new HTTP requests for the remaining tiles. All the eventual incidents will be reported in the &lt;span style=&quot; font-style:italic;&quot;&gt;exceptions.log&lt;/span&gt; file.&lt;/p&gt;&lt;p&gt;c) &lt;span style=&quot; font-weight:600;&quot;&gt;strict&lt;/span&gt; - an inappropriate HTTP response from a WMS server will break HTTP communication and stop the entire caching process.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="title">
+            <string>Exception Mode</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QRadioButton" name="radioTolerant">
+              <property name="styleSheet">
+               <string notr="true">border: 0</string>
+              </property>
+              <property name="text">
+               <string>tolerant</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioModerate">
+              <property name="styleSheet">
+               <string notr="true">border: 0</string>
+              </property>
+              <property name="text">
+               <string>moderate   </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioStrict">
+              <property name="styleSheet">
+               <string notr="true">border: 0</string>
+              </property>
+              <property name="text">
+               <string>strict</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupFormat">
+           <property name="whatsThis">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The image format of both WMS HTTP responses and created tiles. Therefore transparency is not supported by jpeg-images - the &lt;span style=&quot; font-style:italic;&quot;&gt;transparent&lt;/span&gt; option for background color will be disabled in the case of &lt;span style=&quot; font-style:italic;&quot;&gt;JPEG&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="title">
+            <string>Format</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QRadioButton" name="radioJpeg">
+              <property name="styleSheet">
+               <string notr="true">border: 0</string>
+              </property>
+              <property name="text">
+               <string>JPEG          </string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioPng">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0</string>
+              </property>
+              <property name="text">
+               <string>PNG</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioGIF">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0</string>
+              </property>
+              <property name="text">
+               <string>GIF</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
+       <item>
+        <widget class="QTextEdit" name="textProcessOutput">
+         <property name="styleSheet">
+          <string notr="true">background-image: url(:/icons/glonass_f.png);</string>
+         </property>
+         <property name="tabChangesFocus">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_17">
+         <item>
+          <widget class="QPushButton" name="pushExecute">
+           <property name="toolTip">
+            <string>Start caching using the given parameters</string>
+           </property>
+           <property name="text">
+            <string>  E&amp;xecute</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/icons/ok.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+X</string>
+           </property>
+           <property name="default">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushBreak">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>Stop caching process</string>
+           </property>
+           <property name="text">
+            <string>  &amp;Break</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/icons/stop.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+B</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="tmresources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>pushQuit</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>928</x>
+     <y>26</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>490</x>
+     <y>346</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/download.png</file>
+        <file>icons/eraser.png</file>
+        <file>icons/save.png</file>
+        <file>icons/stop.png</file>
+        <file>icons/cancel.png</file>
+        <file>icons/ok.png</file>
+        <file>icons/default.png</file>
+        <file>icons/load.png</file>
+        <file>icons/open.png</file>
+        <file>icons/fatcow_sm_layers.png</file>
+        <file>icons/glonass_f.png</file>
+    </qresource>
+</RCC>
